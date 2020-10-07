@@ -4,12 +4,15 @@
   "description": "GraphQL API to retrieve students info",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "start": "node .",
+    "start:watch": "nodemon ."
   },
   "author": "CodeEnzyme",
   "license": "MIT",
   "devDependencies": {
     "jest": "^26.5.2",
+    "nodemon": "^2.0.4",
     "supertest": "^5.0.0"
   },
   "dependencies": {
