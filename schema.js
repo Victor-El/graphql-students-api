@@ -34,7 +34,7 @@ const rootQuery = new GraphQLObjectType({
         customer: {
             type: StudentType,
             args: {
-                id: {type: GraphQLInt}
+                id: {type: new GraphQLNonNull(GraphQLInt)}
             },
             resolve: (pv, args) => {
                 return axios.get(URL+"/"+args.id).then(res => res.data);
