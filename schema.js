@@ -27,7 +27,7 @@ const StudentType = new GraphQLObjectType({
 
 const StudentsListType = new GraphQLList(StudentType);
 
-
+// Query
 const rootQuery = new GraphQLObjectType({
     name: "StudentsRootQuery",
     fields: {
@@ -55,9 +55,35 @@ const rootQuery = new GraphQLObjectType({
     }
 });
 
+// Mutations
+const mutation = new GraphQLObjectType({
+    name: "StudentsMutation",
+    fields: {
+        addCustomer: {
+            type: StudentType,
+            args: {
+                id: {type: new GraphQLNonNull(GraphQLInt)},
+                name: {type: new GraphQLNonNull(GraphQLString)},
+                age: {type: new GraphQLNonNull(GraphQLInt)},
+                department: {type: new GraphQLNonNull(GraphQLString)},
+                level: {type: new GraphQLNonNull(GraphQLInt)}
+            },
+            resolve: (pv, args) => {
+                return axios.post(URL, {
+                    id: args.id,
+                    name: args.name,
+                    level: args.level,
+                    age: args.age,
+                    department: args.department
+                }).then(res => res.data);
+            }
+        }
+    }
+});
 
 const schema = new GraphQLSchema({
-    query: rootQuery
+    query: rootQuery,
+    mutation
 });
 
 module.exports = schema;
