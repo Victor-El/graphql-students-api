@@ -77,6 +77,28 @@ const mutation = new GraphQLObjectType({
                     department: args.department
                 }).then(res => res.data);
             }
+        },
+
+        removeCustomer: {
+            type: StudentType,
+            args: {id: {type: new GraphQLNonNull(GraphQLInt)}},
+            resolve: (pv, args) => {
+                return axios.delete(URL+"/"+args.id).then(res => res.data);
+            }
+        },
+
+        editCustomer: {
+            type: StudentType,
+            args: {
+                id: {type: new GraphQLNonNull(GraphQLInt)},
+                name: {type: new GraphQLNonNull(GraphQLString)},
+                age: {type: new GraphQLNonNull(GraphQLInt)},
+                level: {type: new GraphQLNonNull(GraphQLInt)},
+                department: {type: new GraphQLNonNull(GraphQLString)}
+            },
+            resolve: (pv, args) => {
+                return axios.patch(URL+"/"+args.id, args).then(res => res.data);
+            }
         }
     }
 });
